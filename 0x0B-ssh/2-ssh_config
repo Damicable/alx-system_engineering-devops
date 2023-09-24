@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#SSH client configuration with private key ~/.ssh/school and no password
+
+Host *
+  PasswordAuthentication no
+  IdentityFile ~/.ssh/school
+  SendEnv LANG LC_*
+  HashKnownHosts yes
+  GSSAPIAuthentication yes
+  HostName 34.224.62.116
+  User ubuntu
