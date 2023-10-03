@@ -2,8 +2,8 @@
 
 exec {'update':
   provider => shell,
-  command  => 'sudo apt-get -y install nginx',
-  before   => Exec['add_header'],
+  command  => 'sudo apt-get -y update',
+  before   => Exec['install Nginx'],
 }
 
 exec {'install Nginx':
