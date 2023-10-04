@@ -3,11 +3,11 @@
 #To web-01 and web-02 and distibutr request using roundrobin algorithm
 
 apt-get install -y software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-1.8
+add-apt-repository -y ppa:vbernat/haproxy-2.8
 apt-get update
-apt-get install -y haproxy=1.8.\*
+apt-get install -y haproxy=2.8.\*
 
-echo "ENABLED=1" >> /etc/default/haproxy
+echo "ENABLED=1" | sudo tee /etc/default/haproxy
 mv /etc/haproxy/haproxy.cfg{,.original}
 touch /etc/haproxy/haproxy.cfg
 
@@ -36,6 +36,6 @@ listen hbnb
     option forwardfor
     server 330646-web-01 34.224.62.116:80 check
     server 330646-web-02 35.174.204.80:80 check
-" >> /etc/haproxy/haproxy.cfg
+" | sudo tee /etc/haproxy/haproxy.cfg
 
 service haproxy start
