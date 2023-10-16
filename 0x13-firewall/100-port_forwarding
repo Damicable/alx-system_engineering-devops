@@ -9,11 +9,11 @@
 #
 
 # Forward port 80 requests to 8080
-# Source: https://serverfault.com/questions/238563/can-i-use-ufw-to-setup-a-port-forward
 *nat
 :PREROUTING ACCEPT [0:0]
--A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
-
+-A PREROUTING -i eth0 -p tcp --dport 8080 -j REDIRECT --to-port 80
+-A POSTROUTING -o eth0 -j MASQUERADE
+COMMIT
 # Don't delete these required lines, otherwise there will be errors
 *filter
 :ufw-before-input - [0:0]
