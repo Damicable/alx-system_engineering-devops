@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Modify Nginx user and start Nginx all in 7 lines
+sed -i 's/user  nginx;/user  nginx;/' /etc/nginx/nginx.conf
+cat > /etc/nginx/conf.d/default.conf <<EOL
+server {
+    listen       8080 default_server;
+    server_name  _;
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html;
+    }
+}
+EOL
+nginx -g "daemon off"
