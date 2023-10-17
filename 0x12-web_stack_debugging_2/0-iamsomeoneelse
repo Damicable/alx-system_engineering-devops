@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Login with a given username and display it
+# Check if a username argument is provided
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <username>"
+    exit 1
+fi
+
+username="$1"
+sudo -u "$username" whoami

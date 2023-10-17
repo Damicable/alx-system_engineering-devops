@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Modify Nginx user and start Nginx all in 7 lines
+sudo sed -i 's/user  nginx/user  nginx/' /etc/nginx/nginx.conf
+echo 'server { listen *:8080 default_server; server_name  _; location / 
+             { root /usr/share/nginx/html; index index.html; }  
+              }' > sudo tee /etc/nginx/conf.d/default.conf
+sudo service nginx restart
