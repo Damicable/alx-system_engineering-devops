@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script with RESR API that returns information about employee's TODO list"""
+"""Script with RESR API that returns data about employee's TODO list"""
 
 import requests
 import sys
