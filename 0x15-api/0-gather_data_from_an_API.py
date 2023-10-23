@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 """Script with RESR API that returns data about employee's TODO list"""
-
 import requests
 import sys
-
 
 if __name__ == "__main__":
     base_url = "https://jsonplaceholder.typicode.com/"
