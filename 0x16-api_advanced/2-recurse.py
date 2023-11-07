@@ -4,15 +4,14 @@ This script defines a recursive function to query the Reddit API
 """
 
 import requests
+import sys
 
-def recurse(subreddit, hot_list=None, after=None):
+def recurse(subreddit, hot_list=[], after=None):
     """
     Return all hot article titles
     """
-    if hot_list is None:
-        hot_list = []
 
-    headers = {'User-Agent': 'MyRedditBot'}  # Add your user-agent here
+    headers = {'User-Agent': 'MyRedditBot/1.0'}  # Add your user-agent here
 
     url = f'https://www.reddit.com/r/{subreddit}/hot.json'
     params = {'limit': 100, 'after': after}
@@ -33,4 +32,8 @@ def recurse(subreddit, hot_list=None, after=None):
         return recurse(subreddit, hot_list, after)
     else:
         return hot_list
+
+
+if __name__ == "__main__":
+    recurse(sys.argv[1])
 
