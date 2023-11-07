@@ -11,7 +11,7 @@ def word_in_sentence(word, sentence, holder):
         return holder
     if word == sentence[0].lower():
         if holder.get(word):
-            holder[word] = holder.get(word) + 1
+            holder[word] += 1
         else:
             holder[word] = 1
     return word_in_sentence(word, sentence[1:], holder)
@@ -22,25 +22,24 @@ def word_in_array_of_sentences(word, arr, holder):
     if len(arr) == 0:
         return holder
     holder = word_in_sentence(word, arr[0].split(' '), holder)
-    return word_in_array_of_sentences(
-            word, arr[1:], holder)
+    return word_in_array_of_sentences(word, arr[1:], holder)
 
 
 def words_in_array_of_sentences(words, arr, holder):
+    """This count sorted alphabetically (ascending, from A to Z)"""
     if len(words) == 0:
         return holder
     holder = word_in_array_of_sentences(words[0].lower(), arr, holder)
-    return words_in_array_of_sentences(
-            words[1:], arr, holder)
+    return words_in_array_of_sentences(words[1:], arr, holder)
 
 
 def recurse(subreddit, hot_list=[], after=""):
     """
     Return all hot article titles
     """
-    req_url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    req_url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {
-        "User-Agent": "Switch value to prevent breaking"
+        "User-Agent": "MyRedditBot/1.0"
     }
     params = {
         "after": after
@@ -71,10 +70,10 @@ def count_words(subreddit, word_list):
         sorted_dict = dict(
                 sorted(
                     word_occurence.items(), key=lambda item: (
-                        -item[1], item[0])))
+                        -item[1], item[0].lower())))
         for key, value in sorted_dict.items():
-            print("{}: {}".format(key, value))
+            print(f"{key.lower()}: {value}")
 
 
 if __name__ == "__main__":
-    count_words(sys.argv[1], sys.argv[2])
+    count_words(sys.argv[1], sys.argv[2].split())
