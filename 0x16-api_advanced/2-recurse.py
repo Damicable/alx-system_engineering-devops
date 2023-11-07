@@ -3,6 +3,7 @@
 """This script defines a recursive function to query the Reddit API"""
 
 import requests
+import sys
 
 def recurse(subreddit, hot_list=None, after=None):
     """Return all hot article titles"""
