@@ -2,6 +2,7 @@
 """This defines a function that queries the Raddit API"""
 
 import request
+import sys
 
 
 def number_of_subscribers(subreddit):
@@ -18,11 +19,11 @@ def number_of_subscribers(subreddit):
 
     try:
         # A GET request to the Reddit API
-        response = request.get(url, headers=headers, allow_redirects=False)
+        r = request.get(url, headers=headers, allow_redirects=False)
 
         # Check if response is successful and parse the json response
-        if response.status_code == 200:
-            data = response.json()
+        if r.status_code == 200:
+            data = r.json()
 
             subscribers = data['data']['subscribers']
 
@@ -30,6 +31,10 @@ def number_of_subscribers(subreddit):
         else:
             return 0
 
-    except requests.RequestException:
+    except r.RequestException:
 
         return 0
+
+
+if __name__ == "__main__":
+    number_of_subscribers(sys.argv[1])
