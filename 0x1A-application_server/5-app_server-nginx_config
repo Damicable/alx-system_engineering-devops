@@ -1,0 +1,69 @@
+# Default server configuration  for API
+server {
+        add_header X-Served-By 330646-web-01;
+        add_header X-Served-By 330646-web-01;
+    listen 80;
+    listen [::]:80 default_server;
+    root   /etc/nginx/html;
+    index  index.html index.htm;
+   
+    # IP address of web-01 server
+    server_name 34.224.62.116;
+
+
+    # Serve /airbnb-onepage/ route on Airbnb_clone_v2
+    location /airbnb-onepage/ {
+        include proxy_params;
+        proxy_pass http://0.0.0.0:5000/airbnb-onepage/;
+    }
+
+
+    # Serve /airbnb-dynamic/number_odd_or_even/(any integer)
+    location /airbnb-dynamic/number_odd_or_even/ {
+        include proxy_params;
+        proxy_pass http://0.0.0.0:5001/number_odd_or_even/;
+    }
+
+
+    location /hbnb_static {
+        alias /data/web_static/current/;
+        index index.html;
+    }
+
+
+    # Serve AirBnB clone v3 - RESTful API
+    location /api/ {
+        include proxy_params;
+        proxy_pass http://0.0.0.0:5002/api/;
+    }
+
+
+    # Serve AirBnB clone v4 - web_dynamic/2-hbnb.py
+    # root location
+    location / {
+        include proxy_params;
+        proxy_pass http://0.0.0.0:5003/2-hbnb;
+    }
+
+    # Serve AirBnB clone v4 - Web static
+    # Static content
+    location /static {
+        alias web_dynamic/static/;
+    }
+
+    # location / {
+    # First attempt to serve request as file, then
+    # as directory, then fall back to displaying a 404.
+    # try_files $uri $uri/ =404;
+    # }
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    error_page 404 /404.html;
+    location /404 {
+        root /etc/nginx/html;
+        internal;
+    }
+}

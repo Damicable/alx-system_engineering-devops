@@ -1,0 +1,25 @@
+# Configuration of Nginx to serve a page from /airbnb-onepage/ route
+server {
+        add_header X-Served-By 330646-web-01;
+        add_header X-Served-By 330646-web-01;
+    listen 80;
+    listen [::]:80 default_server;
+    root   /etc/nginx/html;
+    index  index.html index.htm;
+
+
+    location /airbnb-onepage/ {
+            include proxy_params;
+            proxy_pass http://0.0.0.0:5000/airbnb-onepage/;
+    }
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    error_page 404 /404.html;
+    location /404 {
+      root /etc/nginx/html;
+      internal;
+    }
+}
